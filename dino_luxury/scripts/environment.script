@@ -1,0 +1,5 @@
+$grid = MAIN.$grid;
+$level = MAIN.$level;
+
+$level.loadPlayerVehicle("bus50", "/addons/dino_luxury/bus50/bus17", mkdate(1,1,1992), mkdate(31,12,9999));
+$grid.loadGridObject("bus50b", "addons/dino_luxury/bus50/bus17b.object");

@@ -1,0 +1,8 @@
+$mod = map [
+	"version", [1,0],
+	"name", "VEHICLE Dino Luxury",
+	"description", "MOD The Dino Luxury is an extremely luxurious version of the Dino Vettore built in 1992.",
+	"installto", 2,
+	"author", "giladteller",
+	"homepage", "http://citiesinmotion.wikispaces.com/Dino+Luxury"
+];

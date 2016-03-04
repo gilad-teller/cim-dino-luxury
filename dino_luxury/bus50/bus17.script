@@ -1,0 +1,99 @@
+this.length = 2;
+this.frontOffset = 5.4;
+this.rearOffset = 4.1;
+this.frontAnchor = 2.0;
+this.rearAnchor = 4.1;
+
+this.displayName = MAIN.$strings.$vehicle_bus50;
+this.capacity = 10;
+
+this.acceleration = 1.4;
+this.braking = 0.22;
+this.speed = 0.99;
+this.turning = 1.1;
+//this.tilting = 0.3;
+
+$objectinfoPattern = MAIN.$strings.$objectinfo_timesLastMonth_pattern;
+$objectinfoText = MAIN.$strings.$objectinfo_bus;
+$objectinfoRange = [2, 13];
+
+this.addPath("doorR0-enter", GRID_PATH_END, vector(2.0, 0.4, -4.3), QUAT_IDENT, vector(-0.5, 0.4, -4.3), QUAT_IDENT);
+this.addPath("doorR0-exit", GRID_PATH_START, vector(-0.5, 0.4, 1.2), QUAT_IDENT, vector(2.0, 0.4, 1.2), QUAT_IDENT);
+
+with (this.loadSkeleton("bus17_scene.skeleton")) {
+  .loadAnimation("default", "bus17_anim.animation", 0);
+}
+
+this.doorOpenStart = 0.0;
+this.doorOpenLen = 25.0 / 30.0;
+this.doorCloseStart = 30.0 / 30.0;
+this.doorCloseLen = 25.0 / 30.0;
+
+$price = 110000;
+$trailers = [
+  ["bus50b", false]
+];
+$icon = MAIN.$window.video.new_texture("/addons/dino_luxury/bus50/dlc02_bus17-icon.dds");
+$rendering = "addons/dino_luxury/bus50/bus17-render.dds";
+$reliability = 0.60;
+$fuelConsumption = 10;
+$electricityConsumption = 0;
+$attractiveness = 1.00;
+$speed = 70;
+$type = 0;
+$infoText = MAIN.$strings.$vehicle_bus50_info;
+
+with (this.doorOpenSound = new_sound(this)) {
+  .load("/metro/sounds/4. Bus door opening1 (hiss clank short).wav");
+  .volume = 1.0;
+  .minDistance = 50.0;
+  .maxDistance = 300.0;
+}
+
+with (this.doorCloseSound = new_sound(this)) {
+  .load("/metro/sounds/4. Bus door closing2 (short)  .wav");
+  .volume = 1.0;
+  .minDistance = 50.0;
+  .maxDistance = 300.0;
+}
+
+with (this.engineSound = new_sound(this)) {
+  .load("/metro/sounds/4. Bus engine run1 (pitch2).wav");
+  .volume = 0.25;
+  .minDistance = 50.0;
+  .maxDistance = 300.0;
+}
+
+with (this.hornSound = new_sound(this)) {
+  .load("/metro/sounds/4. Bus horn1 (short).wav");
+  .volume = 1.0;
+  .minDistance = 50.0;
+  .maxDistance = 300.0;
+}
+
+with ($brokenEffect = new_particleEmitter(this)) {
+  .direction = vector(0.0, 1.0, 0.0);
+  .minParticleSpeed = 2.0;
+  .maxParticleSpeed = 3.0;
+  .minParticleAngle = 0.0;
+  .maxParticleAngle = 1.0;
+  .minParticleLife = 2.0;
+  .maxParticleLife = 4.0;
+  .maxDistance = 400.0;
+  .particleSize = 0.5;
+  .setParticleScale(1.0, 0.1, 6.0);
+  .particleAirResist = 0.5;
+  .gravitation = vector(0.0, 3.0, 0.0);
+  .density = 40.0;
+  .addColorRange(0x80333333, 0x00333333);
+  .setTexture("effects/particles/lightsmoke.dds");
+  .conditions = GRIDVEHICLE_BROKEN;
+  .sortParticles = true;
+  .autoemit = true;
+  .visible = true;
+}
+
+event this.onLoaded::() {
+  $brokenEffect.position = vector(0.0, 0.5, 5.5);
+}
+
